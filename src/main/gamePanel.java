@@ -9,6 +9,7 @@ import java.nio.DoubleBuffer;
 import javax.swing.JPanel;
 
 import entity.Player;
+import tile.TileManager;
 
 public class gamePanel extends JPanel implements Runnable{
 	
@@ -18,12 +19,15 @@ public class gamePanel extends JPanel implements Runnable{
 	final int scale =3;
 	public final int tilesize = originalTileSize * scale; //48x48
 	
-	final int maxScreenCol =16;
-	final int maxScreenRow=12;
-	final int screenWidth =tilesize*maxScreenCol; //768 px
-	final int screenHeight= tilesize*maxScreenRow;//576 px
+	public final int maxScreenCol =16;
+	public final int maxScreenRow=12;
+	public final int screenWidth =tilesize*maxScreenCol; //768 px
+	public final int screenHeight= tilesize*maxScreenRow;//576 px
 	
 	int FPS =60;
+	
+	
+	TileManager tileM= new TileManager(this);
 	
 	
 	KeyHandler keyH =new KeyHandler();
@@ -34,9 +38,6 @@ public class gamePanel extends JPanel implements Runnable{
 	
 	//set player default position
 	
-	int playerX = 100;
-	int playerY =100;
-	int playerSpeed=4;
 	
 	
 	public gamePanel() {
@@ -96,6 +97,8 @@ public class gamePanel extends JPanel implements Runnable{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2=(Graphics2D)g;
+		
+		tileM.draw(g2);
 		
 		player.draw(g2);
 
