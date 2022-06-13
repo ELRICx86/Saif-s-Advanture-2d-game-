@@ -26,6 +26,13 @@ public class gamePanel extends JPanel implements Runnable{
 	
 	int FPS =60;
 	
+	//world map parameters
+	
+	public final int worldRow=50;
+	public final int worldCol =50;
+	public final int worldWidth=worldCol*tilesize;
+	public final int worldHeight = worldRow*tilesize;
+	
 	
 	TileManager tileM= new TileManager(this);
 	
@@ -33,7 +40,9 @@ public class gamePanel extends JPanel implements Runnable{
 	KeyHandler keyH =new KeyHandler();
 	Thread gameThread;
 	
-	Player player =new Player(this, keyH);
+	public Player player =new Player(this, keyH);
+	
+	
 	
 	
 	//set player default position
