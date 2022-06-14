@@ -38,6 +38,9 @@ public class gamePanel extends JPanel implements Runnable{
 	
 	
 	KeyHandler keyH =new KeyHandler();
+	
+	
+	public CollisionChecker cChecker= new CollisionChecker(this); 
 	Thread gameThread;
 	
 	public Player player =new Player(this, keyH);

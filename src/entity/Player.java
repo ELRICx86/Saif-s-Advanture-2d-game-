@@ -2,10 +2,12 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.security.auth.login.FailedLoginException;
 import javax.sound.midi.VoiceStatus;
 
 import main.KeyHandler;
@@ -21,6 +23,14 @@ public class Player extends Entity{
 	public Player(gamePanel gPanel,KeyHandler kHandler) {
 		this.gPanel =gPanel;
 		this.kHandler=kHandler;
+		
+		//To make a collision rectangle object object
+		solidArea = new Rectangle();
+		solidArea.x=8;
+		solidArea.y=16;
+		solidArea.width=32;
+		solidArea.height=32;
+		
 		
 		screenX=(gPanel.screenWidth/2)-gPanel.tilesize/2;
 		screenY=(gPanel.screenHeight/2)-gPanel.tilesize/2;
@@ -58,21 +68,50 @@ public class Player extends Entity{
 		if(kHandler.upPressed==true ||kHandler.downPressed==true ||kHandler.leftPressed==true ||kHandler.rightPressed==true) {
 			if(kHandler.upPressed==true) {
 				direction="up";
-				worldY-=speed;
+				
 			}
 			else if (kHandler.downPressed==true) {
 				direction="down";
-				worldY+=speed;
+				
 			}
 			else if(kHandler.leftPressed==true) {
 				direction="left";
-				worldX-=speed;
+				
 			}
 			else if (kHandler.rightPressed==true) {
 				direction="right";
-				worldX+=speed;
+				
 				
 			}
+			
+			//check collision
+			collisionOn =false;
+			gPanel.cChecker.checkTile(this);
+			//if collision false then player can move
+			
+			if(collisionOn == false) {
+				
+				switch(direction) {
+				case "up":{
+					worldY-=speed;
+					break;
+				}
+				case "down":{
+					worldY+=speed;
+					break;
+				}
+				case "left":{
+					worldX-=speed;
+					break;
+				}
+				case "right":{
+					worldX+=speed;
+					break;
+				}
+				}
+			}
+			
+			
 			spriteCounter++;
 			if(spriteCounter>15) {
 				if(spriteNum==1) {
